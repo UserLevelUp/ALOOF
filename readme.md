@@ -40,6 +40,38 @@ ALOOF uses a simple, line-based syntax. Each line typically defines a form eleme
 Summary Message Location: top
 </pre>
 
+**Bigger Example**
+<pre>
+[1] First Name (string, required, "First name is required.")(text)
+[2] Last Name (string, required, "Last name is required.")(text)
+[3] Username (string, required, /^[a-zA-Z0-9_]{4,16}$/, "Username must be 4-16 letters, numbers, or underscores.")(text)
+[4] Email Address (string, required, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address.")(email)
+[5] Password (string, required, /.{8,}/, "Password must be at least 8 characters.")(password)
+[6] Confirm Password (string, required, "Please confirm your password.")(password)
+[7] Date of Birth (date, "Please enter your date of birth.")(date)
+[8] Country (string, required, "Please select your country.")(select)
+[9] Receive Newsletter (boolean, unchecked)(checkbox)
+[10] Agree to Terms (boolean, required, checked, "You must agree to the terms to register.")(checkbox)
+[] Register (submit)(submit)
+</pre>
+
+Explanation of Notable Lines:
+
+<pre>
+[3] Username: Includes a required validation and a regular expression (/^[a-zA-Z0-9_]{4,16}$/) to enforce specific character rules and length, along with a corresponding error message.
+[4] Email Address: Similar to Username, uses required and a common regex for email format validation. The output hint (email) suggests using <input type="email">.
+[5] Password: Uses required and a simple regex (/.{8,}/) to enforce a minimum length. The output hint (password) suggests <input type="password">.
+[6] Confirm Password: Marked as required. Note that the logic to check if this matches the previous password field would typically reside in the template processing logic or client/server-side code, as ALOOF focuses on defining individual field rules.
+[7] Date of Birth: This field is not marked required, making it optional. It uses the date type hint.
+[8] Country: Marked required. The output hint (select) suggests this should be rendered as a dropdown/select list. The actual options for the list would need to be provided in the corresponding parallel data structure.
+[9] Receive Newsletter: Uses a boolean type hint (representing true/false). The validation hint unchecked suggests its default state is false/off. It's optional. The output hint (checkbox) is appropriate.
+[10] Agree to Terms: Also boolean, but marked required. The validation hint checked implies that this field must be true/checked for the form validation to pass.
+</pre>
+
+This example demonstrates how ALOOF could handle various common input types, validation rules (including regex), optional fields, and hints for specific HTML controls like <select> or <input type="password">. Remember, this definition would need a corresponding parallel data structure providing names, IDs, default values, and crucially, the options list for the "Country" select field.
+
+Summary Message Location: top
+
 **Summary Message Location:** Top
 
 ### Accompanying Parallel Data
