@@ -180,7 +180,7 @@ HTML Output:
 <label>Register</label><input type='submit' /><br />
 ```
 
-ALOOF is a conceptual language focused on simplifying form definition. By separating concerns and abstracting implementation details, it enables rapid prototyping and enhances flexibility. While still in its early stages, further development on parsers, processors, and template engines will unlock ALOOF's full potential.
+ALOOF is a conceptual language focused on simplifying form definition. By separating concerns and abstracting implementation details, it enables rapid prototyping and enhances flexibility. While still in its early stages, further development on parsers, processors, and template engines will unlock ALOOF's full potential.  Some of the concepts for generating output files require a first, second, and possibly a third pass.  Once all passes are complete then the form generation will take place on the 4th pass.  That is the initial idea behind ALOOF to combine a.aloof and a.meta into a.json, then the second one combines a.json into a_2.json, and then a_3.json performs one final pass, and then templates are combined into the final form.  But still a lot is up in the air and looking at a strategy that will make this much more simple.   So may rework some of these ideas to clean it up and make adding or organzing forms much simpler and easier to create.
 
 State of this project is in the initial stages.  The thought processing that has gone into this is at a very low level and serious thinking has not yet taken hold, but that will come over the next few weeks.
 
