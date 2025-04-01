@@ -14,19 +14,16 @@ The core idea behind ALOOF is to decouple the *structural and logical definition
 
 ## Key Principles
 
-1. Abstraction ("Aloofness"): The language syntax intentionally omits implementation details like specific IDs, names, values, CSS classes, ARIA attributes, etc. It focuses on the abstract concepts.
+1. **Abstraction ("Aloofness")**: The language syntax intentionally omits implementation details like specific IDs, names, values, CSS classes, ARIA attributes, etc. It focuses on the abstract concepts.
 
-1. Separation of Concerns: ALOOF enforces a clear separation between:
+2. **Separation of Concerns**: ALOOF enforces a clear separation between:
+   - **Structural Definition (ALOOF)**: Defines order, labels, types, validation rules.
+   - **Implementation Details (Parallel Data)**: A separate data structure holds names, values, classes, styles, descriptions, etc.
+   - **Output Generation (Templates/Processor)**: A templating engine combines the ALOOF definition and parallel data to generate the final output.
 
-1. Structural Definition (ALOOF): Defines order, labels, types, validation rules.
+3. **Order-Based Mapping**: The link between a line in an ALOOF definition and its corresponding implementation details in the parallel data structure is based strictly on their order.
 
-1. Implementation Details (Parallel Data): A separate data structure holds names, values, classes, styles, descriptions, etc.
-
-1. Output Generation (Templates/Processor): A templating engine combines the ALOOF definition and parallel data to generate the final output.
-
-1. Order-Based Mapping: The link between a line in an ALOOF definition and its corresponding implementation details in the parallel data structure is based strictly on their order.
-
-1. Target Agnosticism: Because the ALOOF definition is abstract, the same definition can theoretically be used to generate different output formats (HTML, JSON, XML, UI definitions, backend code structures, etc.).
+4. **Target Agnosticism**: Because the ALOOF definition is abstract, the same definition can theoretically be used to generate different output formats (HTML, JSON, XML, UI definitions, backend code structures, etc.).
 
 ## Core Requirements (Distilled)
 1. Line-Based Processing: Each line in ALOOF represents a distinct form element or a group of related elements.
