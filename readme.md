@@ -14,33 +14,38 @@ The core idea behind ALOOF is to decouple the *structural and logical definition
 
 ## Key Principles
 
-- **Abstraction ("Aloofness")**: The language syntax intentionally omits implementation details like specific IDs, names, values, CSS classes, ARIA attributes, etc. It focuses on the abstract concepts.
-- **Separation of Concerns**: ALOOF enforces a clear separation between:
-  1. **Structural Definition (ALOOF)**: Defines order, labels, types, validation rules.
-  2. **Implementation Details (Parallel Data)**: A separate data structure holds names, values, classes, styles, descriptions, etc.
-  3. **Output Generation (Templates/Processor)**: A templating engine combines the ALOOF definition and parallel data to generate the final output.
-- **Order-Based Mapping**: The link between a line in an ALOOF definition and its corresponding implementation details in the parallel data structure is based strictly on their **order**. The first ALOOF line corresponds to the first data item, the second to the second, and so on.
-- **Target Agnosticism**: Because the ALOOF definition is abstract, the *same* definition can theoretically be used to generate different output formats (HTML, JSON, XML, UI definitions, backend code structures, etc.) simply by using different templates in the processing step.
+1. Abstraction ("Aloofness"): The language syntax intentionally omits implementation details like specific IDs, names, values, CSS classes, ARIA attributes, etc. It focuses on the abstract concepts.
+
+1. Separation of Concerns: ALOOF enforces a clear separation between:
+
+1. Structural Definition (ALOOF): Defines order, labels, types, validation rules.
+
+1. Implementation Details (Parallel Data): A separate data structure holds names, values, classes, styles, descriptions, etc.
+
+1. Output Generation (Templates/Processor): A templating engine combines the ALOOF definition and parallel data to generate the final output.
+
+1. Order-Based Mapping: The link between a line in an ALOOF definition and its corresponding implementation details in the parallel data structure is based strictly on their order.
+
+1. Target Agnosticism: Because the ALOOF definition is abstract, the same definition can theoretically be used to generate different output formats (HTML, JSON, XML, UI definitions, backend code structures, etc.).
 
 ## Core Requirements (Distilled)
-1. ALOOF as a DSL: We're working with the ALOOF language as defined in the readme.md.
-Line-Based Processing: Each line in ALOOF represents a distinct form element or a group of related elements.
-1. Order Markers for Grouping/Mapping: The [N] or [arbitrary] markers are used to group elements so they a presentable and simply precede the rest of the content. The markers themselves are arbitrary and do not imply any output order.  
-1. The line itself represents the order.
-1. Parallel Data: ALOOF is designed to work with a separate "parallel data" structure.
-1. Excel Analogy: Each ALOOF line can be thought of as a single cell in Excel.
-1. Metadata: Cells to the left or right of the ALOOF cell in Excel represent metadata for that specific ALOOF line.
-1. Related Fields: Each ALOOF line represents a set of related fields.
-1. HTML Output: The immediate goal is to generate a basic HTML structure for each ALOOF element, specifically:
-<label>: For the field label.
-<input>: For the input field.
-<validation>: For the validation rules (we'll represent this as a <span> for now).
-(a.) : This is the desired output format.
-: This is the desired line break.
-1. No Output Order: The output order of the HTML elements is not determined by the ALOOF order markers.
-1. Submit Button: We need to handle submit buttons.
-1. Loop Line by Line: Each line is to be looped over in sequence.
-1. ALOOF: No one really cares about the other columsn in Excel that aren't about ALOOF because we are all ALOOF.
+1. Line-Based Processing: Each line in ALOOF represents a distinct form element or a group of related elements.
+
+1. Order Markers: Markers like [N] or [] are used to denote ordered or unordered structures.
+
+1. Parallel Data: ALOOF uses a separate "parallel data" structure.
+
+1. Excel Analogy: Each ALOOF line is like a cell in Excel, while adjacent cells store metadata.
+
+1. Related Fields: Each ALOOF line defines related fields.
+
+1. HTML Output: ALOOF generates HTML with <label>, <input>, and <span> for validation messages.
+
+1. Submit Button: Special handling for submit buttons.
+
+1. Loop Processing: Each line is processed sequentially.
+
+1. Aloof Mindset: Ignore non-ALOOF columns when working with data in spreadsheets.
 
 ## Syntax Overview
 
@@ -50,7 +55,13 @@ ALOOF uses a simple, line-based syntax. Each line typically defines a form eleme
 
 [N] Label and Input Type (data type, validation_rules..., "error_message")(control_type)
 
-- `[N]` or `[]`: Optional marker for ordered (`[1]`, `[2]`) or unordered (`[]`) structure.- `Label and Input Type`: The user-facing label and type for the form element.- `(data type, validation..., "message")`: Parentheses containing:  - `data type`: A hint for the data type (e.g., `string`, `number`, `date`).  - `validation_rules`: Keywords like `required`, or potentially patterns like `/regex/`.  - `"error_message"`: The message to display if validation fails.- `(control_type)`: Optional second set of parentheses hinting at the intended output widget type (e.g., `(text)`, `(date)`, `(submit)`).**Configuration Syntax:**
+- `[N]` or `[]`: Optional marker for ordered (`[1]`, `[2]`) or unordered (`[]`) structure.
+- `Label and Input Type`: The user-facing label and type for the form element.
+- `(data type, validation..., "message")`: Parentheses containing:  
+- `data type`: A hint for the data type (e.g., `string`, `number`, `date`).  
+- `validation_rules`: Keywords like `required`, or potentially patterns like `/regex/`.  
+- `"error_message"`: The message to display if validation fails.
+- `(control_type)`: Optional second set of parentheses hinting at the intended output widget type (e.g., `(text)`, `(date)`, `(submit)`).**Configuration Syntax:**
 
 <pre>
 [1] Label and Text Input (string, required, "This field is required.")(text)
@@ -168,3 +179,7 @@ HTML Output:
 <label>2. Last Name</label><input /><span data-validation="required">Last name is required.</span><br />
 <label>Register</label><input type='submit' /><br />
 ```
+
+ALOOF is a conceptual language focused on simplifying form definition. By separating concerns and abstracting implementation details, it enables rapid prototyping and enhances flexibility. While still in its early stages, further development on parsers, processors, and template engines will unlock ALOOF's full potential.
+
+For any questions or contributions, please refer to the project repository at GitHub - ALOOF.

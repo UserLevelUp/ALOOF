@@ -1,0 +1,4 @@
+[1] Label and Text Input (string, required, "This field is required.")(text)
+[2] Label and Group of 3 Checkboxes (checkbox, unchecked)(checkbox)
+[3] Label and 4 Radio Buttons (radio, default=1)(radio)
+[] Submit Button (submit)

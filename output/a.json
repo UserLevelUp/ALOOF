@@ -1,0 +1,32 @@
+{
+    "form_elements": [
+        {
+            "aloof_line": "[1] Label and Text Input (string, required, \"This field is required.\")(text)",
+            "metadata": {
+                "class": "form_elements",
+                "id": "field1",
+                "name": "field1"
+            }
+        },
+        {
+            "aloof_line": "[2] Label and Group of 3 Checkboxes (checkbox, unchecked)(checkbox)",
+            "metadata": {
+                "class": "form_elements",
+                "id": "field2",
+                "name": "field1"
+            }
+        },
+        {
+            "aloof_line": "[3] Label and 4 Radio Buttons (radio, default=1)(radio)",
+            "metadata": {
+                "class": "form_elements",
+                "id": "field3",
+                "name": "field3"
+            }
+        },
+        {
+            "aloof_line": "[] Submit Button (submit)",
+            "metadata": null
+        }
+    ]
+}
