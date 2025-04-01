@@ -22,6 +22,26 @@ The core idea behind ALOOF is to decouple the *structural and logical definition
 - **Order-Based Mapping**: The link between a line in an ALOOF definition and its corresponding implementation details in the parallel data structure is based strictly on their **order**. The first ALOOF line corresponds to the first data item, the second to the second, and so on.
 - **Target Agnosticism**: Because the ALOOF definition is abstract, the *same* definition can theoretically be used to generate different output formats (HTML, JSON, XML, UI definitions, backend code structures, etc.) simply by using different templates in the processing step.
 
+## Core Requirements (Distilled)
+1. ALOOF as a DSL: We're working with the ALOOF language as defined in the readme.md.
+Line-Based Processing: Each line in ALOOF represents a distinct form element or a group of related elements.
+1. Order Markers for Grouping/Mapping: The [N] or [arbitrary] markers are used to group elements so they a presentable and simply precede the rest of the content. The markers themselves are arbitrary and do not imply any output order.  
+1. The line itself represents the order.
+1. Parallel Data: ALOOF is designed to work with a separate "parallel data" structure.
+1. Excel Analogy: Each ALOOF line can be thought of as a single cell in Excel.
+1. Metadata: Cells to the left or right of the ALOOF cell in Excel represent metadata for that specific ALOOF line.
+1. Related Fields: Each ALOOF line represents a set of related fields.
+1. HTML Output: The immediate goal is to generate a basic HTML structure for each ALOOF element, specifically:
+<label>: For the field label.
+<input>: For the input field.
+<validation>: For the validation rules (we'll represent this as a <span> for now).
+(a.) : This is the desired output format.
+: This is the desired line break.
+1. No Output Order: The output order of the HTML elements is not determined by the ALOOF order markers.
+1. Submit Button: We need to handle submit buttons.
+1. Loop Line by Line: Each line is to be looped over in sequence.
+1. ALOOF: No one really cares about the other columsn in Excel that aren't about ALOOF because we are all ALOOF.
+
 ## Syntax Overview
 
 ALOOF uses a simple, line-based syntax. Each line typically defines a form element or a configuration setting.
@@ -59,8 +79,8 @@ Explanation of Notable Lines:
 
 <pre>
 [3] Username: Includes a required validation and a regular expression (/^[a-zA-Z0-9_]{4,16}$/) to enforce specific character rules and length, along with a corresponding error message.
-[4] Email Address: Similar to Username, uses required and a common regex for email format validation. The output hint (email) suggests using <input type="email">.
-[5] Password: Uses required and a simple regex (/.{8,}/) to enforce a minimum length. The output hint (password) suggests <input type="password">.
+[4] Email Address: Similar to Username, uses required and a common regex for email format validation. The output hint (email) suggests using &lt;input type="email"&gt;.
+[5] Password: Uses required and a simple regex (/.{8,}/) to enforce a minimum length. The output hint (password) suggests &lt;input type="password"&gt;.
 [6] Confirm Password: Marked as required. Note that the logic to check if this matches the previous password field would typically reside in the template processing logic or client/server-side code, as ALOOF focuses on defining individual field rules.
 [7] Date of Birth: This field is not marked required, making it optional. It uses the date type hint.
 [8] Country: Marked required. The output hint (select) suggests this should be rendered as a dropdown/select list. The actual options for the list would need to be provided in the corresponding parallel data structure.
@@ -68,14 +88,22 @@ Explanation of Notable Lines:
 [10] Agree to Terms: Also boolean, but marked required. The validation hint checked implies that this field must be true/checked for the form validation to pass.
 </pre>
 
-This example demonstrates how ALOOF could handle various common input types, validation rules (including regex), optional fields, and hints for specific HTML controls like <select> or <input type="password">. Remember, this definition would need a corresponding parallel data structure providing names, IDs, default values, and crucially, the options list for the "Country" select field.
+This example demonstrates how ALOOF could handle various common input types, validation rules (including regex), optional fields, and hints for specific HTML controls like &lt;select&gt; or &lt;input type="password"&gt;. Remember, this definition would need a corresponding parallel data structure providing names, IDs, default values, and crucially, the options list for the "Country" select field.
 
 Summary Message Location: top
+
+## Current Goal:
+
+Focus on Alignment: The primary goal is to perform the alignment of ALOOF lines and their metadata.
+JSON Output: Generate a JSON output that clearly shows the association between each ALOOF line and its metadata.
+Easy Verification: The JSON output should be easy for anyone to verify that the alignment is correct.
+HTML Output: We will continue to generate the HTML output.
 
 **Summary Message Location:** Top
 
 ### Accompanying Parallel Data
-The parallel data would contain entries such as:
+The parallel data would contain meta data such as:
+- `name: name_of_field`
 - `name: task_desc`
 - `name: creator_name`
 - `name: creation_date`
@@ -99,3 +127,44 @@ The parallel data would contain entries such as:
 ### Status
 ALOOF is currently a conceptual language definition. No official parser or tooling exists at this time (as of March 31, 2025). This document describes the intended design and principles.
 This should make your summary clear and well-organized. Let me know if you need any further adjustments!
+
+Alignment example with its meta data:
+
+JSON Output:
+```json
+{
+  "form_elements": [
+    {
+      "aloof_line": "[1] First Name (string, required, \"First name is required.\")(text)",
+      "metadata": {
+        "line_1_name": "first_name",
+        "line_1_id": "first-name-input",
+        "line_1_class": "form-input"
+      }
+    },
+    {
+      "aloof_line": "[2] Last Name (string, required, \"Last name is required.\")(text)",
+      "metadata": {
+        "line_2_name": "last_name",
+        "line_2_id": "last-name-input",
+        "line_2_class": "form-input"
+      }
+    },
+    {
+      "aloof_line": "[] Register (submit)(submit)",
+      "metadata": {
+        "line_3_name": "register_button",
+        "line_3_id": "register-button",
+        "line_3_class": "form-button"
+      }
+    }
+  ]
+}
+```
+
+HTML Output:
+```html
+<label>1. First Name</label><input /><span data-validation="required">First name is required.</span><br />
+<label>2. Last Name</label><input /><span data-validation="required">Last name is required.</span><br />
+<label>Register</label><input type='submit' /><br />
+```
