@@ -182,4 +182,6 @@ HTML Output:
 
 ALOOF is a conceptual language focused on simplifying form definition. By separating concerns and abstracting implementation details, it enables rapid prototyping and enhances flexibility. While still in its early stages, further development on parsers, processors, and template engines will unlock ALOOF's full potential.
 
+State of this project is in the initial stages.  The thought processing that has gone into this is at a very low level and serious thinking has not yet taken hold, but that will come over the next few weeks.
+
 For any questions or contributions, please refer to the project repository at GitHub - ALOOF.
